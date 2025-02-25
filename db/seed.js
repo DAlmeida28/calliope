@@ -31,7 +31,8 @@ const createTables = async () => {
       
       CREATE TABLE synths(
       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-      synth_name VARCHAR(60) UNIQUE
+      synth_name VARCHAR(60) UNIQUE,
+      synth_type VARCHAR(10) NOT NULL
       );
 
       CREATE TABLE reviews(
@@ -71,9 +72,9 @@ const dataseed = async () => {
   console.log(`Users created.`);
 
   console.log(`Creating Synths.`);
-  const octa = await createSynths('Octatrack');
-  const irid = await createSynths('Iridium');
-  const easle = await createSynths('Buchla Music Easle');
+  const octa = await createSynths('Octatrack', 'Sampler');
+  const irid = await createSynths('Iridium', 'Wavetable');
+  const easle = await createSynths('Buchla Music Easle', 'Modular');
   console.log(`Created Synths.`);
 
   console.log(`Creating Reviews.`);

@@ -11,8 +11,9 @@ const registerUser = async (uNameToRegister, pwToRegister) => {
     INSERT INTO users(username, password)
     VALUES('${uNameToRegister}', '${hashpw}')
     RETURNING * ;`);
-
-    return (rows[0]);
+    
+    const userCreated = rows[0];
+    return userCreated;
   } catch (err) {
 
     console.log(err);

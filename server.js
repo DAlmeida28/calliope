@@ -3,11 +3,22 @@ const client = require(`./db/client.js`);
 client.connect();
 
 const { registerUser, loginUser } = require(`./db/users.js`);
+const { fetchSynths } = require(`./db/synths.js`);
 
 const express = require('express');
 const app = express();
 
 app.use(express.json());
+
+app.get(`/api/v1/items`, async (req, res, next) => {
+  
+  try{
+  const retrievedItems = await fetchSynths();
+  res.send(retrievedItems);
+  } catch(err){
+    next(err)
+  }
+})
 
 app.post(`/api/v1/login`, async (req,res, next) => {
   try{

@@ -1,11 +1,11 @@
 const client = require('./client.js');
 
-const createSynths = async (synth_name) => {
+const createSynths = async (synth_name, synth_type) => {
   
   try{
     const { rows } = await client.query(`
-      INSERT INTO synths(synth_name)
-      VALUES('${synth_name}')
+      INSERT INTO synths(synth_name, synth_type)
+      VALUES('${synth_name}', '${synth_type}')
       RETURNING *;
       `);
 
@@ -29,7 +29,22 @@ const fetchSynths = async () => {
   }
 }
 
+const getSynth = async (id) =>{
+  try{
+    const{ rows } = await client.query(`
+      SELECT * FROM synths WHERE id='${id}';
+      `);
+      
+      const singleSynth = rows[0];
+      return singleSynth;
+
+  } catch(err){
+    console.log(err);
+  }
+}
+
 module.exports = {
   createSynths,
-  fetchSynths
+  fetchSynths,
+  getSynth
 }

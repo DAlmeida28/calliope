@@ -10,9 +10,7 @@ const createReviews = async (review_score, reviewed_by, review_text, synth_revie
     
 }catch (err){
   console.log(err);
-}
-
-}
+}}
 
 module.exports = { 
   createReviews

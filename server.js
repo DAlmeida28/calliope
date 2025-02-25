@@ -12,8 +12,12 @@ const app = express();
 app.use(express.json());
 
 app.get(`/api/v1/items/:itemid/reviews`, async (req, res, next) => {
-  
+
   try {
+    
+    const { itemid } = req.params;
+    const reviewsOfSynth = await fetchItemReviews(itemid);
+    res.send(reviewsOfSynth);
 
   } catch(err) {
     console.log(err);

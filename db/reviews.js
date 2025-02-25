@@ -12,6 +12,19 @@ const createReviews = async (review_score, reviewed_by, review_text, synth_revie
   console.log(err);
 }}
 
+const fetchItemReviews = async (synthId) => {
+  
+  try{
+    const { rows: synthReviews } = await client.query(`
+      SELECT * FROM reviews WHERE synth_reviewed='${synthId}';
+      `);
+      
+      return synthReviews;
+  } catch (err) {
+    console.log(err);
+  }
+}
 module.exports = { 
-  createReviews
+  createReviews,
+  fetchItemReviews
 }

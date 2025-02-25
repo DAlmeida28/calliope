@@ -1,10 +1,22 @@
 require('dotenv').config();
-const express = require('express');
+const client = require(`./db/client.js`);
+client.connect();
 
+const { registerUser } = require(`./db/users.js`);
+
+const express = require('express');
 const app = express();
 
-app.post(`/api/v1/register`, (req, res, next) => {
-  console.log(`Register Route`);
+app.use(express.json());
+
+app.post(`/api/v1/register`, async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const userCreated = await registerUser(username, password);
+    res.send(`${userCreated.username} created successfully.`);
+  } catch (err) {
+    next(err);
+  }
 })
 
 app.listen(process.env.PORT, () => {

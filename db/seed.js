@@ -1,6 +1,7 @@
 require('dotenv').config();
-
 const client = require(`./client.js`);
+
+const { registerUser } = require(`./users.js`);
 
 const dropTables = async () => {
   try{
@@ -41,6 +42,11 @@ const dataseed = async () => {
   console.log(`Creating tables`);
   await createTables();
   console.log(`Tables Created.`);
+
+  console.log(`Creating Users.`);
+  await registerUser('test', 'test1');
+  await registerUser('test2', 'test2');
+  console.log(`Users created.`);
 
   console.log(`Disconnecting from DB`);
   client.end();

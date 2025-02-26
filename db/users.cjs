@@ -31,7 +31,7 @@ const loginUser = async (username, password) => {
       const isPassswordValid = await bcrypt.compare(password, user.password);
       if (isPassswordValid) {
         const token = await jwt.sign({ username: user.username }, process.env.SECRET);
-        console.log(token);
+       
         return token;
       }
     } else {
@@ -57,7 +57,7 @@ const loginToken = async (token) => {
     } else {
       return { message: 'bad token'}
     }
-    console.log(user);
+    
   } catch(err){
     console.log(err);
   }

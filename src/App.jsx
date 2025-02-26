@@ -53,6 +53,7 @@ const authLogin = async (event) => {
       token ?
       <>
       <h2> Welcome {displayName}</h2>
+
       </>
       :
       <>

@@ -4,7 +4,7 @@ client.connect();
 
 const { registerUser, loginUser, loginToken } = require(`./db/users.cjs`);
 const { fetchSynths, getSynth } = require(`./db/synths.cjs`);
-const { fetchItemReviews } = require(`./db/reviews.cjs`);
+const { fetchItemReviews, fetchMyReviews, createReviews, deleteSelectedReview } = require(`./db/reviews.cjs`);
 
 const express = require('express');
 const app = express();
@@ -20,6 +20,42 @@ app.get(`/api/v1/items/:itemid/reviews`, async (req, res, next) => {
     res.send(reviewsOfSynth);
   } catch(err) {
     console.log(err);
+  }
+})
+
+app.delete('/api/v1/reviews/:reviewid', async (req,res, next) => {
+  try{
+    const { reviewid } = req.params;
+    const attemptDeleteReview = await deleteSelectedReview(req.headers.authorization, reviewid);
+    res.send(attemptDeleteReview);
+  } catch(err){
+    console.log(err);
+  }
+})
+
+app.get(`/api/v1/reviews/me`, async (req, res, next) => {
+  try{
+  
+    const myReviews = await fetchMyReviews(req.headers.authorization);
+    res.send(myReviews);
+  } catch(err) {
+    console.log(err);
+  }
+})
+
+app.post(`/api/v1/items/:itemid/reviews`, async (req, res, netx) =>{
+  try{
+    const { itemid } = req.params;
+    const { review_score, reviewed_by, review_text } = req.body;
+    if(req.headers.authorization){ //would I create a second function for the auth created reviews?
+      const submitReview = await createReviews(review_score, reviewed_by, review_text, itemid);
+      res.send(submitReview);
+    }
+    else {
+      throw Error('You are no logged in');
+    }
+  } catch(err){
+
   }
 })
 

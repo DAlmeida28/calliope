@@ -1,7 +1,7 @@
 require('dotenv').config();
 const client = require(`./client.cjs`);
 
-const { registerUser } = require(`./users.js`);
+const { registerUser } = require(`./users.cjs`);
 const { createSynths } = require(`./synths.cjs`);
 const { createReviews } = require(`./reviews.cjs`);
 
@@ -38,7 +38,7 @@ const createTables = async () => {
       CREATE TABLE reviews(
       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
       review_score INT NOT NULL CHECK (review_score >= 1 AND review_score <= 5),
-      reviewed_by UUID NOT NULL REFERENCES users(id),
+      reviewed_by VARCHAR(40) NOT NULL REFERENCES users(username),
       synth_reviewed UUID NOT NULL REFERENCES synths(id),
       review_text TEXT
       );
@@ -78,9 +78,9 @@ const dataseed = async () => {
   console.log(`Created Synths.`);
 
   console.log(`Creating Reviews.`);
-  await createReviews('4', `${test1.id}`, 'THIS SYNTH IS AMAZING', `${octa.id}`);
-  await createReviews('5', `${synth_nerd.id}`, 'I love this instrument', `${octa.id}`);
-  await createReviews('1', `${music.id}`, 'None of the features work, bad.', `${irid.id}`);
+  await createReviews('4', `${test1.username}`, 'THIS SYNTH IS AMAZING', `${octa.id}`);
+  await createReviews('5', `${synth_nerd.username}`, 'I love this instrument', `${octa.id}`);
+  await createReviews('1', `${music.username}`, 'None of the features work, bad.', `${irid.id}`);
   console.log(`Reviews Created`);
 
 

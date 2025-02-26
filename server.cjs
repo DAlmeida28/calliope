@@ -43,11 +43,11 @@ app.get(`/api/v1/reviews/me`, async (req, res, next) => {
   }
 })
 
-app.post(`/api/v1/items/:itemid/reviews`, async (req, res, netx) =>{
+app.post(`/api/v1/items/:itemid/reviews`, async (req, res, next) =>{
   try{
     const { itemid } = req.params;
     const { review_score, reviewed_by, review_text } = req.body;
-    if(req.headers.authorization){ //would I create a second function for the auth created reviews?
+    if(req.headers.authorization){
       const submitReview = await createReviews(review_score, reviewed_by, review_text, itemid);
       res.send(submitReview);
     }

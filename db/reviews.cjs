@@ -27,8 +27,7 @@ const fetchItemReviews = async (synthId) => {
 const fetchMyReviews = async (authToken) => {
   try{
     const userVerify = await jwt.verify(authToken, process.env.SECRET);
-    //Can I get an user UUID fromt this? 
-    console.log(userVerify);
+
     const { rows } = await client.query(`
         SELECT * FROM reviews WHERE reviewed_by='${userVerify.username}';
         `);

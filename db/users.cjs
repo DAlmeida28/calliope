@@ -30,8 +30,8 @@ const loginUser = async (username, password) => {
     if (user) {
       const isPassswordValid = await bcrypt.compare(password, user.password);
       if (isPassswordValid) {
-        const token = await jwt.sign({ username: user.username }, process.env.SECRET);
-       
+        const token = await jwt.sign({ username: user.username, id: user.id }, process.env.SECRET);
+    
         return token;
       }
     } else {
@@ -51,7 +51,6 @@ const loginToken = async (token) => {
     );
 
     const user = rows[0];
-  
     if(user){
       return { username: user.username};
     } else {

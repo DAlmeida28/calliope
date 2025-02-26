@@ -1,4 +1,4 @@
-const client = require('./client.js');
+const client = require('./client.cjs');
 
 const createSynths = async (synth_name, synth_type) => {
   

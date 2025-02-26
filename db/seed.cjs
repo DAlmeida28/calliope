@@ -1,9 +1,9 @@
 require('dotenv').config();
-const client = require(`./client.js`);
+const client = require(`./client.cjs`);
 
 const { registerUser } = require(`./users.js`);
-const { createSynths } = require(`./synths.js`);
-const { createReviews } = require(`./reviews.js`);
+const { createSynths } = require(`./synths.cjs`);
+const { createReviews } = require(`./reviews.cjs`);
 
 const dropTables = async () => {
   try{

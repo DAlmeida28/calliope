@@ -1,4 +1,4 @@
-const client = require(`./client.js`);
+const client = require(`./client.cjs`);
 
 const createReviews = async (review_score, reviewed_by, review_text, synth_reviewed) => {
 
